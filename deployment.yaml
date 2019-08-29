@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: test-server
-          image: loggingdemo.azurecr.io/spring-demo:latest
+          image: kapilbansal161/newjava-app:#{Build.BuildId}#
           imagePullPolicy: "Always"
           ports:
             - name: http-port
