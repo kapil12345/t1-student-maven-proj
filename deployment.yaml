@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: spring-demo-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: test-server
@@ -14,21 +14,21 @@ spec:
     spec:
       containers:
         - name: test-server
-          image: kapilbansal161/newjava-app:#{Build.BuildId}#
+          image: angularhclacr.azurecr.io/newjava-app:latest
           imagePullPolicy: "Always"
           ports:
             - name: http-port
-              containerPort: 8080
+              containerPort: 8081
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: spring-demo-service
 spec:
-  ports:
-    - name: http-port
-      port: 80
-      targetPort: http-port
-      protocol: TCP
   selector:
     app: test-server
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8081
+  type: LoadBalancer
